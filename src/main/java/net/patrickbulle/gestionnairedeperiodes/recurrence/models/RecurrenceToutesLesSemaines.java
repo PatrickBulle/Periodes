@@ -7,6 +7,7 @@ import net.patrickbulle.gestionnairedeperiodes.recurrence.Jour;
 import net.patrickbulle.gestionnairedeperiodes.recurrence.models.fin.RecurrenceFin;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -50,5 +51,15 @@ public class RecurrenceToutesLesSemaines extends Recurrence {
             noeud.put(CLE_TOUTES_LES_N_SEMAINES, toutesLesNSemaines);
         }
         noeud.put(CLE_MASQUE_JOURS, getMasqueSemaine());
+    }
+
+    @Override
+    protected boolean doIsDateValide(LocalDate date) {
+        return false;
+    }
+
+    @Override
+    public List<LocalDate> getDates(LocalDate depart, Integer nbDates) {
+        return List.of();
     }
 }

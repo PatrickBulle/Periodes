@@ -9,10 +9,13 @@ import lombok.Setter;
 import net.patrickbulle.gestionnairedeperiodes.recurrence.Jour;
 import net.patrickbulle.gestionnairedeperiodes.recurrence.exception.RecurrenceException;
 import net.patrickbulle.gestionnairedeperiodes.recurrence.models.fin.RecurrenceFin;
+import net.patrickbulle.gestionnairedeperiodes.recurrence.models.fin.RecurrenceFinApres;
+import net.patrickbulle.gestionnairedeperiodes.recurrence.models.fin.RecurrenceFinLe;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
+import java.util.List;
 import java.util.UUID;
 
 import static java.lang.Math.pow;
@@ -170,4 +173,14 @@ public abstract class Recurrence {
         return recurrenceToutesLesSemaines;
     }
 
+    protected abstract boolean doIsDateValide(LocalDate date);
+
+    public boolean isDateValide(LocalDate date) {
+        if (date == null ||dateDebut == null || fin == null || date.isBefore(dateDebut) || (fin instanceof RecurrenceFinLe && date.isAfter(((RecurrenceFinLe) fin).getDate()))) {
+            return false;
+        }
+        return doIsDateValide(date);
+    }
+
+    public abstract List<LocalDate> getDates(LocalDate depart, Integer nbDates);
 }

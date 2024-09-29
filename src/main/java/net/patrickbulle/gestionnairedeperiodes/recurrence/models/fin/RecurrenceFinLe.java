@@ -19,6 +19,12 @@ public class RecurrenceFinLe extends RecurrenceFin {
         type = FIN_LE;
     }
 
+    public RecurrenceFinLe(LocalDate date) {
+        super();
+        type = FIN_LE;
+        this.date = date;
+    }
+
     @Override
     protected void doToJson(ObjectNode noeud) {
         if (date == null) {
@@ -26,10 +32,5 @@ public class RecurrenceFinLe extends RecurrenceFin {
         } else {
             noeud.put(CLE_DATE, date.format(DateTimeFormatter.ISO_LOCAL_DATE));
         }
-    }
-
-    @Override
-    public String toString() {
-        return date == null ? "Date de fin non renseignée" : "Date de fin le " + date.format(DateTimeFormatter.ISO_DATE);
     }
 }

@@ -1,6 +1,5 @@
 package net.patrickbulle.gestionnairedeperiodes.recurrence.models.fin;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -34,23 +33,15 @@ public abstract class RecurrenceFin {
         return noeudRacine;
     }
 
-    public static RecurrenceFin fromJson(String json) throws RecurrenceException {
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode noeudRacine = null;
+    public static RecurrenceFin fromJson(JsonNode fin) throws RecurrenceException {
 
-        try {
-            noeudRacine = mapper.readTree(json);
-        } catch (JsonProcessingException e) {
-            throw new RecurrenceException(RecurrenceException.ERREUR_PARSE_RECURRENCE_FIN, e);
-        }
-
-        if (noeudRacine != null) {
-            JsonNode typeNode = noeudRacine.get(CLE_TYPE);
+        if (fin != null) {
+            JsonNode typeNode = fin.get(CLE_TYPE);
             if (typeNode != null) {
                 return switch (typeNode.asInt()) {
                     case FIN_JAMAIS -> new RecurrenceFinJamais();
-                    case FIN_LE -> getRecurrenceFinLe(noeudRacine);
-                    case FIN_APRES -> getRecurrenceFinApres(noeudRacine);
+                    case FIN_LE -> getRecurrenceFinLe(fin);
+                    case FIN_APRES -> getRecurrenceFinApres(fin);
                     default ->
                             throw new RecurrenceException(String.format(CLE_VALEUR_INCONNUE, typeNode.asInt(), CLE_TYPE));
                 };

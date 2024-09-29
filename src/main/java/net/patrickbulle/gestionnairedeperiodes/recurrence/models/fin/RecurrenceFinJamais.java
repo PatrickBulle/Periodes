@@ -6,9 +6,4 @@ public class RecurrenceFinJamais extends RecurrenceFin {
         super();
         type = FIN_JAMAIS;
     }
-
-    @Override
-    public String toString() {
-        return "Pas de fin";
-    }
 }

@@ -15,6 +15,12 @@ public class RecurrenceFinApres extends RecurrenceFin {
         type = FIN_APRES;
     }
 
+    public RecurrenceFinApres(Integer nbOccurrences) {
+        super();
+        type = FIN_APRES;
+        this.nbOccurrences = nbOccurrences;
+    }
+
     @Override
     protected void doToJson(ObjectNode noeud) {
         if (nbOccurrences == null) {
@@ -22,10 +28,5 @@ public class RecurrenceFinApres extends RecurrenceFin {
         } else {
             noeud.put(CLE_NB_OCURRENCES, nbOccurrences);
         }
-    }
-
-    @Override
-    public String toString() {
-        return nbOccurrences == null ? "Nombre d'occurrences non renseigné" : String.format("Fin après %s occurrence%s", nbOccurrences, nbOccurrences > 1 ? "s" : "");
     }
 }
